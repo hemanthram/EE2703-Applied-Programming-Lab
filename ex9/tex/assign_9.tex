@@ -1,0 +1,527 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{assign\_9}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{overview}{%
+\section{Overview:}\label{overview}}
+
+In this assignment, we continue to analyze discrete Fourier transforms
+for non-periodic functions. When doing so, we face the problem Gibb's
+phenomenon as we have some discontinuities in the functions. To overcome
+this, we introduce windowing using the Hamming window. With the help of
+this, we also perform a time-frequency analysis for the chirped signal.
+
+    \hypertarget{code-and-generated-outputs}{%
+\section{Code and Generated Outputs
+:}\label{code-and-generated-outputs}}
+
+Importing required libraries :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} \PYZpc{}matplotlib qt}
+        \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d}\PY{n+nn}{.}\PY{n+nn}{axes3d} \PY{k}{as} \PY{n+nn}{p3} 
+        \PY{c+c1}{\PYZsh{} for plotting surface plot of chirped function}
+\end{Verbatim}
+
+    The generic utility function to plot and return the transform of a given
+function \(func\) with or without windowing. This function is the same
+as used in the last assignment except the part where we define
+\(y[0] = 0\) as we are dealing with non-periodic functions with possible
+discontinuities here.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{transform}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{n}{sin}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{8}\PY{o}{*}\PY{n}{pi}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{512}\PY{p}{,} \PY{n}{lim} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{hamming} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{ret} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{n}{t}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{T}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{T}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{y}\PY{o}{=}\PY{n}{func}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+            \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=} \PY{l+m+mi}{0} 
+            \PY{n}{w}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{n}{pi}\PY{o}{/}\PY{n}{T}\PY{p}{)}\PY{p}{,}\PY{n}{N}\PY{o}{*}\PY{p}{(}\PY{n}{pi}\PY{o}{/}\PY{n}{T}\PY{p}{)}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{n} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+            \PY{n}{W} \PY{o}{=} \PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)} 
+            \PY{k}{if}\PY{p}{(}\PY{n}{hamming}\PY{p}{)}\PY{p}{:}
+                \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{*}\PY{n}{W}
+            \PY{n}{Y}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{fft}\PY{p}{(}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{N}
+            \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+            \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{lim}\PY{p}{,}\PY{n}{lim}\PY{p}{]}\PY{p}{)}
+            \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y|\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+            \PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{ii} \PY{o}{=} \PY{n}{where}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{)}
+            \PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{markersize}\PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+            \PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{lim}\PY{p}{,}\PY{n}{lim}\PY{p}{]}\PY{p}{)}
+            \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase of \PYZdl{}Y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+            \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+            \PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{show}\PY{p}{(}\PY{p}{)}
+            \PY{k}{if}\PY{p}{(}\PY{n}{ret}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{Y}
+\end{Verbatim}
+
+    \hypertarget{analyzing-transform-of-cos3w_0t}{%
+\subsection{\texorpdfstring{Analyzing transform of
+\(cos^{3}(w_{0}t)\)}{Analyzing transform of cos\^{}\{3\}(w\_\{0\}t)}}\label{analyzing-transform-of-cos3w_0t}}
+
+First we plot the transform without windowing. We get 4 peaks, but they
+are not separated and are broad.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{transform}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{0.86}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{8}\PY{o}{*}\PY{n}{pi}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{256}\PY{p}{,} \PY{n}{lim} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now, we plot with windowing and see that the peaks are now narrorwer and
+more separated than before.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{transform}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{0.86}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{8}\PY{o}{*}\PY{n}{pi}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{256}\PY{p}{,} \PY{n}{lim} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{hamming} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{finding-phase-and-frequency-of-given-cosine-from-transform}{%
+\subsection{Finding phase and frequency of given cosine from
+transform}\label{finding-phase-and-frequency-of-given-cosine-from-transform}}
+
+We first find the transform of the given cosine (taking \(w_{0}=1.5\)
+and \(\delta=0.5\)) and find its frequency by taking the weighted
+average of \(\omega\) with \(\mid{Y}\mid^{2}\). In case of \(\delta\),
+we know that the phase at the peaks give us directly the phase shift
+which is \(\delta\) in our case, we take its value directly.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{transform}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{128}\PY{p}{,} \PY{n}{lim} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{ret} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{hamming}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{w} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{129}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{weighted\PYZus{}sum} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{sum\PYZus{}y2} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}print(Y[i],w[i])}
+            \PY{n}{weighted\PYZus{}sum} \PY{o}{=} \PY{n}{weighted\PYZus{}sum} \PY{o}{+} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{sum\PYZus{}y2} \PY{o}{=} \PY{n}{sum\PYZus{}y2} \PY{o}{+} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w0 :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{weighted\PYZus{}sum}\PY{o}{/}\PY{n}{sum\PYZus{}y2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{delta :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{65}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+w0 :
+1.4946936152446477
+delta :
+0.4917448315931694
+
+    \end{Verbatim}
+
+    We see that the obtained values of \(\omega_{0}\) and \(\delta\) are
+very close to the given values. Next, we do the same along with adding
+some noise to the previous function and try to find the same using the
+same methods above.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{transform}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{128}\PY{p}{,} \PY{n}{lim} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{ret} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{hamming}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{w} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{129}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{weighted\PYZus{}sum} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{sum\PYZus{}y2} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}print(Y[i],w[i])}
+            \PY{n}{weighted\PYZus{}sum} \PY{o}{=} \PY{n}{weighted\PYZus{}sum} \PY{o}{+} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{sum\PYZus{}y2} \PY{o}{=} \PY{n}{sum\PYZus{}y2} \PY{o}{+} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w0 :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{weighted\PYZus{}sum}\PY{o}{/}\PY{n}{sum\PYZus{}y2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{delta :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{65}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+w0 :
+2.409680825681503
+delta :
+0.496199540632489
+
+    \end{Verbatim}
+
+    We see that the \(\delta\) is close to required value but the frequency
+is far different from the required value, due to noise added.
+
+    \hypertarget{the-chirped-function}{%
+\subsection{The chirped function}\label{the-chirped-function}}
+
+We first plot the transform of the given function, with hamming
+windowing.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{transform}\PY{p}{(}\PY{n}{func} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{lim} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{hamming}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Next, we take fragments of the samples, each of length 64, take
+transform of each fragment, and then plot it along with the frequency as
+a surface plot.We see that as time increases from \(-\pi\) to \(+\pi\),
+the frequency where the peak occurs, keeps changing from \(16 rad/sec\)
+and \(32 rad/sec\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{Ts} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{)}
+        \PY{n}{n} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+        \PY{n}{W} \PY{o}{=} \PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{63}\PY{p}{)}\PY{p}{)} 
+        \PY{n}{M} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{:}
+            \PY{n}{t} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{n}{Ts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{Ts}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;} \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{y} \PY{o}{=} \PY{p}{(}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{t}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{W}
+            \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{Y}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{64}
+            \PY{n}{M}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{)}
+        \PY{n}{Ts} \PY{o}{=} \PY{n}{Ts}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{wax} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;} \PY{n}{wax} \PY{o}{=} \PY{n}{wax}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{M} \PY{o}{=} \PY{n}{array}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+        \PY{n}{T}\PY{p}{,}\PY{n}{W} \PY{o}{=} \PY{n}{meshgrid}\PY{p}{(}\PY{n}{Ts}\PY{p}{,}\PY{n}{wax}\PY{p}{)}
+        
+        \PY{n}{fig1}\PY{o}{=}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)} \PY{c+c1}{\PYZsh{} open a new figure}
+        \PY{n}{ax}\PY{o}{=}\PY{n}{p3}\PY{o}{.}\PY{n}{Axes3D}\PY{p}{(}\PY{n}{fig1}\PY{p}{)} \PY{c+c1}{\PYZsh{} Axes3D is the means to do a surface plot}
+        \PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abs(Y) for different time frames and corresponding frequencies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{surf} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{M}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+        \PY{n}{fig1}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \(cos^{3}(\omega t)\) function's transform was observed to be
+  better with windowding.
+\item
+  We found the frequency and phase of a given cosine using its transform
+  and the obtained values were close enough when the noise was not there
+  and noise abruptly changed the frequency's value.
+\item
+  We also observed the chirped function and saw that its frequency kept
+  changing with time, by analyzing its fragments separately.
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
