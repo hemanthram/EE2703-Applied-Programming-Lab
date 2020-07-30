@@ -31,8 +31,22 @@ def potential(M,N,K,dx,hbyL,acc,Niter):
 
         # Error updates
         errors[_] = (abs(old_phi-phi).max())
+    
+    # Performing LSA to get coefficient A and B
+    # to model the error as exponential
+    M = ones((Niter-500,2))
+    M[:,0] = arange(501,Niter+1,1)
+    c = c_[log(errors[500:])]
+    B,a1 = lstsq(M,c,rcond=None)[0]
+    A = exp(a1)
 
-    return phi
+    # Finding the iteration where error goes below required accuracy
+    for req_iter in range(500,Niter,1):
+        er = (A*((exp(B*(req_iter+0.5)))))/(-B)
+        if(er < acc):
+            break
+
+    return phi,req_iter
 
 # Setting up the parameters
 # Throughout, we use M = 200, N = 100 and the mesh which is created here
@@ -49,7 +63,8 @@ show(); close()
 print("Plotting Contours .. please wait ..")
 subplots(figsize=(11,17))
 for i in range(1,10):
-    phi = potential(M,N,2,1,i/10,10**(-7),15000)  
+    phi,ri = potential(M,N,2,1,i/10,10**(-3),15000)  
+    print("Required iterations for h/Ly = ",i/10,"=>",ri)
     subplot(2,5,i)
     CS = contourf(Y/10,X/10,phi)
     axis('scaled')    
@@ -68,7 +83,7 @@ q_top = []
 q_fluid = []
 for i in range(1,10):
     k = int(M*(1-i/10))
-    phi = potential(M,N,2,1,i/10,10**(-7),15000)  
+    phi,ri = potential(M,N,2,1,i/10,10**(-3),15000)  
     # Initialising Ex, Ey arrays
     Ex = zeros((M, N))
     Ey = zeros((M, N))
@@ -104,7 +119,7 @@ print("Done")
 # Calculating field and 
 # Verification of continuity of Dn at boundary for h = 0.5
 hbyL = 0.5
-phi = potential(M,N,2,1,hbyL,1,15000)  
+phi,ri = potential(M,N,2,1,hbyL,10**(-3),15000)  
 k = int(M*(1-hbyL))
 # initialising Ex, Ey arrays
 Ex = zeros((M, N))
